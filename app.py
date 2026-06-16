@@ -1,15 +1,14 @@
 """
 app.py
 
-Gradio interface for FitFindr. The layout and wiring are already set up —
-your job is to fill in handle_query() so it calls run_agent() and maps
-the session results to the three output panels.
+Gradio interface for FitFindr. handle_query() takes the user's query and wardrobe
+choice, calls run_agent(), and maps the session results onto the three output panels.
 
 Run with:
     python app.py
 
 Then open the localhost URL shown in your terminal (usually http://localhost:7860,
-but check your terminal — the port may differ).
+but check your terminal, the port may differ).
 """
 
 import gradio as gr
@@ -33,15 +32,11 @@ def handle_query(user_query: str, wardrobe_choice: str) -> tuple[str, str, str]:
             (listing_text, outfit_suggestion, fit_card)
         Each string maps to one of the three output panels in the UI.
 
-    TODO:
-        1. Guard against an empty query (return early with an error message).
-        2. Select the wardrobe based on wardrobe_choice.
-        3. Call run_agent() with the query and selected wardrobe.
-        4. If session["error"] is set, return the error in the first panel
-           and empty strings for the other two.
-        5. Otherwise, format session["selected_item"] into a readable listing_text
-           string and return it along with session["outfit_suggestion"] and
-           session["fit_card"].
+    Steps: guard against an empty query, pick the wardrobe from wardrobe_choice,
+    run the agent, then map the result onto the panels. If session["error"] is set,
+    the error goes in the first panel and the other two come back empty. Otherwise
+    the selected listing is formatted into listing_text and returned alongside the
+    outfit suggestion and the fit card.
     """
     # 1. guard against an empty query
     if not user_query or not user_query.strip():
@@ -91,7 +86,7 @@ def build_interface():
         gr.Markdown("""
 # FitFindr 🛍️
 Find secondhand pieces and get outfit ideas based on your wardrobe.
-Describe what you're looking for — include size and price if you want to filter.
+Describe what you're looking for, and include size and price if you want to filter.
         """)
 
         with gr.Row():

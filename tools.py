@@ -64,7 +64,7 @@ def parse_query(query: str) -> dict:
     Pull a description, size, and max_price out of a natural language query.
 
     Pulled this out of the agent so the planning loop stays readable. It's just
-    regex — nothing fancy. Returns {"description", "size", "max_price"}.
+    regex, nothing fancy. Returns {"description", "size", "max_price"}.
     """
     text = query.strip()
 
@@ -217,8 +217,8 @@ def create_fit_card(outfit: str, new_item: dict) -> str:
     # guard: can't caption an outfit that doesn't exist
     if not outfit or not outfit.strip():
         return (
-            "Can't write a fit card without an outfit — looks like the styling step "
-            "didn't return anything. Try running suggest_outfit again first."
+            "Can't write a fit card without an outfit. Looks like the styling step "
+            "didn't return anything, try running suggest_outfit again first."
         )
 
     price = new_item.get("price")

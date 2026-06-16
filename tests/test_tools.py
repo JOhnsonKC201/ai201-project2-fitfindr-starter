@@ -5,7 +5,7 @@ Tests for the three FitFindr tools + parse_query. At least one test per failure
 mode (no listings found / empty wardrobe / incomplete outfit).
 
 The two tools that call the LLM are tested with a monkeypatched _chat so the
-suite runs fast and doesn't need an API key — I'm testing the branching logic
+suite runs fast and doesn't need an API key. I'm testing the branching logic
 (empty wardrobe vs not, empty outfit guard), not the model's wording.
 
 Run with:  pytest tests/ -q
@@ -41,7 +41,7 @@ def test_search_size_filter_case_insensitive():
 
 
 def test_search_results_sorted_by_relevance():
-    # more keyword overlap should rank higher — the top hit should match
+    # more keyword overlap should rank higher, so the top hit should match
     # at least as many keywords as the last hit
     results = search_listings("vintage denim jacket", size=None, max_price=None)
     assert len(results) > 1
@@ -69,7 +69,7 @@ def test_parse_no_filters():
 # ── suggest_outfit (LLM mocked) ───────────────────────────────────────────────
 
 def _fake_chat(prompt, **kwargs):
-    """Stand-in for the LLM — echoes back a tag so we can assert which branch ran.
+    """Stand-in for the LLM. Echoes back a tag so we can assert which branch ran.
     The non-empty branch lists the closet with this exact phrase."""
     if "already in their closet" in prompt:
         return "MOCK_OUTFIT (saw closet)"
