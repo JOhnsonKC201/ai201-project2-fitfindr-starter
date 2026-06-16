@@ -14,3 +14,6 @@ env/
 
 # macOS
 .DS_Store
+
+# Local helper - not part of submission
+verify_signatures.py
